@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Confirmation";
+}
+
+@model Mission4Assignment.Models.ApplicationResponse
+
+
+<h2>Thank you for adding @Model.Title to the database</h2>
+<br />
+<a asp-controller="Home" asp-action="Index">Return to Homepage</a><br />
+<a asp-controller="Home" asp-action="AddMovie">Add Another Movie</a>
