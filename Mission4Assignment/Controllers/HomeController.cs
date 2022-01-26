@@ -38,6 +38,7 @@ namespace Mission4Assignment.Controllers
         [HttpPost]
         public IActionResult AddMovie(ApplicationResponse movie)
         {
+            //If required fields in the modle aren't filled out, this stops the form from submitting
             if(!ModelState.IsValid)
             {
                 return View();
