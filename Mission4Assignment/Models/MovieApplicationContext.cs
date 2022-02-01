@@ -14,7 +14,7 @@ namespace Mission4Assignment.Models
         }
 
         //Takes data from teh ApplicationResponse object and pushes it to the Movies database
-        public DbSet<ApplicationResponse> Movies { get; set; }
+        public DbSet<MovieInfo> Movies { get; set; }
         public DbSet<MovieCategory> Categories { get; set; }
 
         //Sets default features when database is created
@@ -30,10 +30,10 @@ namespace Mission4Assignment.Models
                 new MovieCategory { CategoryId = 7, CategoryName = "Television"}
                 );
 
-            mb.Entity<ApplicationResponse>().HasData(
+            mb.Entity<MovieInfo>().HasData(
 
                 //Adds data when database is created
-                new ApplicationResponse
+                new MovieInfo
                 {
                     MovieID = 1,
                     CategoryId = 3,
@@ -46,7 +46,7 @@ namespace Mission4Assignment.Models
                     Notes = "Made me better"
                 },
 
-                new ApplicationResponse
+                new MovieInfo
                 {
                     MovieID = 2,
                     CategoryId = 1,
@@ -59,7 +59,7 @@ namespace Mission4Assignment.Models
                     Notes = "Incredible film"
                 },
 
-                new ApplicationResponse
+                new MovieInfo
                 {
                     MovieID = 3,
                     CategoryId = 1,

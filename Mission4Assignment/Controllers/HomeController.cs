@@ -38,7 +38,7 @@ namespace Mission4Assignment.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddMovie(ApplicationResponse movie)
+        public IActionResult AddMovie(MovieInfo movie)
         {
             //If required fields in the modle aren't filled out, this stops the form from submitting
             if(!ModelState.IsValid)
@@ -80,9 +80,25 @@ namespace Mission4Assignment.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ApplicationResponse blah)
+        public IActionResult Edit(MovieInfo blah)
         {
             MovieContext.Update(blah);
+            MovieContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int movieid)
+        {
+            var movie = MovieContext.Movies.Single(x => x.MovieID == movieid);
+            return View(movie);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(MovieInfo movie)
+        {
+            MovieContext.Movies.Remove(movie);
             MovieContext.SaveChanges();
 
             return RedirectToAction("MovieList");

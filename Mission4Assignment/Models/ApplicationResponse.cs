@@ -8,7 +8,7 @@ namespace Mission4Assignment.Models
 {   
     //Building out the model to collect information from the form
     //Making certain fields required and setting a max length to the Notes field
-    public class ApplicationResponse
+    public class MovieInfo
     {
         [Key]
         [Required]
