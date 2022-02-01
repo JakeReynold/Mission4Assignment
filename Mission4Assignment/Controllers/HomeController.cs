@@ -43,6 +43,7 @@ namespace Mission4Assignment.Controllers
             //If required fields in the modle aren't filled out, this stops the form from submitting
             if(!ModelState.IsValid)
             {
+                ViewBag.Categories = MovieContext.Categories.ToList();
                 return View();
             }
             
@@ -67,6 +68,24 @@ namespace Mission4Assignment.Controllers
                 .ToList();
 
             return View(movie);
+        }
+        [HttpGet]
+        public IActionResult Edit(int movieid)
+        {
+            ViewBag.Categories = MovieContext.Categories.ToList();
+
+            var movie = MovieContext.Movies.Single(x => x.MovieID == movieid);
+
+            return View("AddMovie", movie);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ApplicationResponse blah)
+        {
+            MovieContext.Update(blah);
+            MovieContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
         }
     }
 }

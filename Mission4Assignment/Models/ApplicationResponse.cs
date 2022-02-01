@@ -16,20 +16,20 @@ namespace Mission4Assignment.Models
 
 
         //Build Foreign Key Relationship
-        [Required]
+        [Required(ErrorMessage ="You must select a category")]
         public int CategoryId { get; set; }
         public MovieCategory Category { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="Please enter the title of the movie")]
         public string Title { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="Please enter the year of the film's release")]
         public int Year { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="Please enter the director of the film")]
         public string Director { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="You must select the film's rating")]
         public string Rating { get; set; }
         public bool IsEdited { get; set; }
         public string LentTo { get; set; }
