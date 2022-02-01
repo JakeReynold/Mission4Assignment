@@ -9,10 +9,11 @@
 </head>
 <body>
     @*Navigation bar that is shared accross pages*@
-    <nav>
-        <a asp-controller="Home" asp-action="Index">&ensp;Home&ensp;</a> |
-        <a asp-controller="Home" asp-action="Podcast">&ensp;My Podcasts&ensp;</a> |
-        <a asp-controller="Home" asp-action="AddMovie">&ensp;Add A Movie&ensp;</a>
+    <nav class="nav-tabs navbar-toggler">
+        <a asp-controller="Home" asp-action="Index">Home</a> |
+        <a asp-controller="Home" asp-action="Podcast">My Podcasts</a> |
+        <a asp-controller="Home" asp-action="AddMovie">Add A Movie</a> |
+        <a asp-controller="Home" asp-action="MovieList">Movie Library</a>
     </nav>
     <div>
         @RenderBody()

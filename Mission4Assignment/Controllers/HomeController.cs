@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission4Assignment.Models;
 using System;
@@ -11,15 +12,13 @@ namespace Mission4Assignment.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private MovieApplicationContext _blahContext { get; set; }
+        private MovieApplicationContext MovieContext { get; set; }
 
         //Constructor
-        public HomeController(ILogger<HomeController> logger, MovieApplicationContext someName)
+        public HomeController(MovieApplicationContext someName)
         {
             //Configures connection to database
-            _logger = logger;
-            _blahContext = someName;
+            MovieContext = someName;
         }
 
         public IActionResult Index()
@@ -32,6 +31,9 @@ namespace Mission4Assignment.Controllers
         public IActionResult AddMovie()
         {
             //Returns the AddMovieView when visiting the page
+
+            ViewBag.Categories = MovieContext.Categories.ToList();
+
             return View();
         }
 
@@ -45,8 +47,8 @@ namespace Mission4Assignment.Controllers
             }
             
             //Proposes and saves changes to the database once the form is submitted
-            _blahContext.Add(movie);
-            _blahContext.SaveChanges();
+            MovieContext.Add(movie);
+            MovieContext.SaveChanges();
             return View("Confirmation", movie);
         }
 
@@ -56,15 +58,15 @@ namespace Mission4Assignment.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult MovieList ()
         {
-            return View();
-        }
+            //Returns the MovieList View
+            var movie = MovieContext.Movies
+                .Include(x => x.Category)
+                .OrderBy(x => x.Title)
+                .ToList();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(movie);
         }
     }
 }

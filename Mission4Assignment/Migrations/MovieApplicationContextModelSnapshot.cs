@@ -21,9 +21,8 @@ namespace Mission4Assignment.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -52,13 +51,15 @@ namespace Mission4Assignment.Migrations
 
                     b.HasKey("MovieID");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
                             MovieID = 1,
-                            Category = "Drama",
+                            CategoryId = 3,
                             Director = "Sidney Lumet",
                             IsEdited = false,
                             LentTo = "",
@@ -70,7 +71,7 @@ namespace Mission4Assignment.Migrations
                         new
                         {
                             MovieID = 2,
-                            Category = "Action/Sci-fi",
+                            CategoryId = 1,
                             Director = "Matt Reeves",
                             IsEdited = false,
                             LentTo = "",
@@ -82,7 +83,7 @@ namespace Mission4Assignment.Migrations
                         new
                         {
                             MovieID = 3,
-                            Category = "Action/Adventure",
+                            CategoryId = 1,
                             Director = "Steven Spielberg",
                             IsEdited = false,
                             LentTo = "",
@@ -91,6 +92,66 @@ namespace Mission4Assignment.Migrations
                             Title = "Raiders of the Lost Ark",
                             Year = 1981
                         });
+                });
+
+            modelBuilder.Entity("Mission4Assignment.Models.MovieCategory", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            CategoryName = "Television"
+                        });
+                });
+
+            modelBuilder.Entity("Mission4Assignment.Models.ApplicationResponse", b =>
+                {
+                    b.HasOne("Mission4Assignment.Models.MovieCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
